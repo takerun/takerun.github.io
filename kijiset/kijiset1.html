@@ -1,19 +1,29 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
  "http://www.w3.org/TR/html4/strict.dtd">
 
- <html>
- <head>
- <title>記事集1</title>
- </head>
- <body>
- <script type="text/javascript">
+<html>
+<head>
+<title>記事集1</title>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+</head>
+<body>
+  <noscript><b>ブラウザの設定で JavaScript を有効にしてください。</b></noscript>
+  <script type="text/javascript">
 <!--
-var i = 0;
-if (i == 0) {
-	document.write("変数 i は 0 です");
-}
-// -->
-</script>
+var kijiset = new Array();
+kijiset = new Array("a","b","c","d","e");
+var index = kijiset.length;
+for (var i = 0; i < index; i++)
+{
 
- </body>
- </html>
+  var rnd = Math.floor(Math.random()*(5-i); //乱数
+  document.write("記事" + (i+1) + ":" + kijiset[rnd] + "<br>");
+  kijiset.splice(rnd,1);
+  document.write("test,Array.length = " + kijiset.length + "<br>");
+}
+
+// -->
+  </script>
+
+</body>
+</html>
