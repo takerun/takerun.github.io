@@ -15,11 +15,9 @@ kijiset = new Array("a","b","c","d","e");
 var index = kijiset.length;
 for (var i = 0; i < index; i++)
 {
-
-  var rnd = Math.floor(Math.random()*(5-i); //乱数
+  var rnd = Math.floor(Math.random()*(index-i)); //乱数
   document.write("記事" + (i+1) + ":" + kijiset[rnd] + "<br>");
   kijiset.splice(rnd,1);
-  document.write("test,Array.length = " + kijiset.length + "<br>");
 }
 
 // -->
