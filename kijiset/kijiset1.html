@@ -7,10 +7,10 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <script type="text/javascript">
 <!--
-function Check() {
+function Check(num) {
 Br=navigator.appName;
-Num=document.user.tr1.value.length;
-document.user.counter.value=Num;
+Num=document.form[num].element[0].value.length;
+document.form[num].element[2].value=Num;
 }
 // -->
 </script>
@@ -18,14 +18,6 @@ document.user.counter.value=Num;
 <body>
   <p>記事一覧</p>
   <noscript><b>ブラウザの設定で JavaScript を有効にしてください。</b></noscript>
-<!-- 折りたたみ -->
-  <div onclick="obj=document.getElementById('xxxxx').style; obj.display=(obj.display=='none')?'block':'none';">
-    <p><input type="button" value="記事一覧" style="cursor:pointer;"></p>
-  </div>
-<!--// 折りたたみ -->
-
-<!-- 折りたたまれ -->
-  <div id="xxxxx" style="display:none;clear:both;">
   <script type="text/javascript">
 <!--
 kiji1 = "http://www.huffingtonpost.jp/2015/09/29/china-arrests-three-japanese_n_8217998.html";
@@ -45,25 +37,45 @@ for (var i = 0; i < index; i++)
 {
   var rnd = Math.floor(Math.random()*(index-i)); //乱数
   document.write("記事" + (i+1) + ",整理番号" + kijiset[rnd][0] +
-                 ":<a href=" + kijiset[rnd][1] + " target=fp>" + kijiset[rnd][1] + "</a><br>");
+                 ":<a href=" + kijiset[rnd][1] + " target=_blank>" + kijiset[rnd][1] + "</a><br>");
+  document.write("<p>記事下方に下書きスペースがあるので自由に使ってください。</p>");
+//iframe作り
+  var iframe = document.createElement("iframe");
+  document.body.appendChild(iframe);
+  iframe.src = kijiset[rnd][1];
+  iframe.width = "95%";
+  iframe.height = "500";
+  document.write("<p>下書きスペース</p>");
+//下書きスペース作り、枠
+  var preform = document.createElement("form");
+  document.body.appendChild(preform);
+//下書きスペース作り、エリア
+  var pretext = document.createElement("textarea");
+  preform.appendChild(pretext);
+  pretext.cols="50";
+  pretext.row="4";
+  pretext.maxlength="110";
+  pretext.wrap="soft";
+//下書きスペース、文字計算
+  var button = document.createElement("input");
+  preform.appendChild(button);
+  button.type="button";
+  button.value="文字数チェック";
+  button.onclick="Check(" + i + ")";
+  var box = document.createElement("input");
+  preform.appendChild(box);
+  box.type="text";
+  box.size=3;
+  box.maxlength=3
+/*  document.write("<form name="user">
+                    <textarea name="tr1" cols="50" row="4" maxlength="110" wrap="soft"></textarea>
+                    <p><input type="button" value="文字数チェック" onClick="Check()">
+                    <input type="text" name="counter" size=3 maxlength=3>文字</p>
+                    </form>");
+*/
   kijiset.splice(rnd,1);
 }
 // -->
   </script>
-  </div>
-<!--// 折りたたまれ -->
-  <p>ページ下方に下書きスペースがあるので自由に使ってください。<p>
-
-  <iframe name="fp" width="95%" height="500" scrolling="yes">
-  このページでは、インラインフレームを使用しています。
-  対応しているブラウザで表示願います。
-  </iframe>
-
-  <p>下書きスペース</p>
-  <form name="user">
-  <textarea name="tr1" cols="50" row="4" maxlength="110" wrap="soft"></textarea>
-  <p><input type="button" value="文字数チェック" onClick="Check()">
-    <input type="text" name="counter" size=3 maxlength=3>文字</p>
-  </form>
 </body>
 </html>
