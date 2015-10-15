@@ -5,10 +5,27 @@
 <head>
 <title>記事集1</title>
 <meta http-equiv="Content-Script-Type" content="text/javascript">
+<script type="text/javascript">
+<!--
+function Check() {
+Br=navigator.appName;
+Num=document.user.tr1.value.length;
+document.user.counter.value=Num;
+}
+// -->
+</script>
 </head>
 <body>
   <p>記事一覧</p>
   <noscript><b>ブラウザの設定で JavaScript を有効にしてください。</b></noscript>
+<!-- 折りたたみ -->
+  <div onclick="obj=document.getElementById('xxxxx').style; obj.display=(obj.display=='none')?'block':'none';">
+    <p><input type="button" value="記事一覧" style="cursor:pointer;"></p>
+  </div>
+<!--// 折りたたみ -->
+
+<!-- 折りたたまれ -->
+  <div id="xxxxx" style="display:none;clear:both;">
   <script type="text/javascript">
 <!--
 kiji1 = "http://www.huffingtonpost.jp/2015/09/29/china-arrests-three-japanese_n_8217998.html";
@@ -27,12 +44,26 @@ var index = kijiset.length;
 for (var i = 0; i < index; i++)
 {
   var rnd = Math.floor(Math.random()*(index-i)); //乱数
-  document.write("記事" + (i+1) + ",整理番号" + kijiset[rnd][0] + ":<a href=" + kijiset[rnd][1] + ">" + kijiset[rnd][1] + "</a><br>");
+  document.write("記事" + (i+1) + ",整理番号" + kijiset[rnd][0] +
+                 ":<a href=" + kijiset[rnd][1] + " target=fp>" + kijiset[rnd][1] + "</a><br>");
   kijiset.splice(rnd,1);
 }
-
 // -->
   </script>
+  </div>
+<!--// 折りたたまれ -->
+  <p>ページ下方に下書きスペースがあるので自由に使ってください。<p>
 
+  <iframe name="fp" width="95%" height="500" scrolling="yes">
+  このページでは、インラインフレームを使用しています。
+  対応しているブラウザで表示願います。
+  </iframe>
+
+  <p>下書きスペース</p>
+  <form name="user">
+  <textarea name="tr1" cols="50" row="4" maxlength="110" wrap="soft"></textarea>
+  <p><input type="button" value="文字数チェック" onClick="Check()">
+    <input type="text" name="counter" size=3 maxlength=3>文字</p>
+  </form>
 </body>
 </html>
