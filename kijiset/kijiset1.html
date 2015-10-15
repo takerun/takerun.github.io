@@ -7,16 +7,27 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 </head>
 <body>
+  <p>記事一覧</p>
   <noscript><b>ブラウザの設定で JavaScript を有効にしてください。</b></noscript>
   <script type="text/javascript">
 <!--
-var kijiset = new Array();
-kijiset = new Array("a","b","c","d","e");
+kiji1 = "http://www.huffingtonpost.jp/2015/09/29/china-arrests-three-japanese_n_8217998.html";
+kiji2 = "http://www.huffingtonpost.jp/sharescafe-online/women-employment-success_b_8217248.html";
+kiji3 = "http://www.huffingtonpost.jp/2015/09/28/miura-rieko-married_n_8211446.html";
+kiji4 = "http://www.huffingtonpost.jp/autoblog-japan/ceovw_b_8211120.html";
+kiji5 = "http://www.huffingtonpost.jp/2015/09/24/fruits-and-vegetables-diet-depression_n_8188132.html";
+
+var kijiset = [[1,kiji1],
+               [2,kiji2],
+               [3,kiji3],
+               [4,kiji4],
+               [5,kiji5]
+             ];
 var index = kijiset.length;
 for (var i = 0; i < index; i++)
 {
   var rnd = Math.floor(Math.random()*(index-i)); //乱数
-  document.write("記事" + (i+1) + ":" + kijiset[rnd] + "<br>");
+  document.write("記事" + (i+1) + ",整理番号" + kijiset[rnd][0] + ":<a href=" + kijiset[rnd][1] + ">" + kijiset[rnd][1] + "</a><br>");
   kijiset.splice(rnd,1);
 }
 
