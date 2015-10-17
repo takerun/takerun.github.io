@@ -5,77 +5,119 @@
 <head>
 <title>記事集1</title>
 <meta http-equiv="Content-Script-Type" content="text/javascript">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 <!--
-function Check(num) {
-Br=navigator.appName;
-Num=document.form[num].element[0].value.length;
-document.form[num].element[2].value=Num;
-}
-// -->
+  /*(ボツ)文字数を数えるfanction
+  function check(obj){
+    var n=obj;
+    while(n){
+      if(n.nodeName=="TEXTAREA"){var ta=n;break;}
+      n=n.previousSibling;
+    }
+    var n=obj;
+    while(n){
+      if(n.nodeName=="INPUT" && n.type=="text"){var tb=n;break;}
+      n=n.previousSibling;
+    }
+    tb.value=ta.value.replace(/[\n\r]/g,"").length;
+  }*/
+  $(function(){
+    $.each($('textarea'),function(){
+      $(this).bind('keydown keyup keypress change',function(){
+        var thisValueLength = $(this).val().length;
+        $(this).nextAll('.count').html(thisValueLength + "文字");
+      });
+    });
+  });
+//-->
 </script>
 </head>
-<body>
-  <p>記事一覧</p>
-  <noscript><b>ブラウザの設定で JavaScript を有効にしてください。</b></noscript>
-  <script type="text/javascript">
-<!--
-kiji1 = "http://www.huffingtonpost.jp/2015/09/29/china-arrests-three-japanese_n_8217998.html";
-kiji2 = "http://www.huffingtonpost.jp/sharescafe-online/women-employment-success_b_8217248.html";
-kiji3 = "http://www.huffingtonpost.jp/2015/09/28/miura-rieko-married_n_8211446.html";
-kiji4 = "http://www.huffingtonpost.jp/autoblog-japan/ceovw_b_8211120.html";
-kiji5 = "http://www.huffingtonpost.jp/2015/09/24/fruits-and-vegetables-diet-depression_n_8188132.html";
 
-var kijiset = [[1,kiji1],
-               [2,kiji2],
-               [3,kiji3],
-               [4,kiji4],
-               [5,kiji5]
-             ];
-var index = kijiset.length;
-for (var i = 0; i < index; i++)
-{
-  var rnd = Math.floor(Math.random()*(index-i)); //乱数
-  document.write("記事" + (i+1) + ",整理番号" + kijiset[rnd][0] +
-                 ":<a href=" + kijiset[rnd][1] + " target=_blank>" + kijiset[rnd][1] + "</a><br>");
-  document.write("<p>記事下方に下書きスペースがあるので自由に使ってください。</p>");
-//iframe作り
-  var iframe = document.createElement("iframe");
-  document.body.appendChild(iframe);
-  iframe.src = kijiset[rnd][1];
-  iframe.width = "95%";
-  iframe.height = "500";
-  document.write("<p>下書きスペース</p>");
-//下書きスペース作り、枠
-  var preform = document.createElement("form");
-  document.body.appendChild(preform);
-//下書きスペース作り、エリア
-  var pretext = document.createElement("textarea");
-  preform.appendChild(pretext);
-  pretext.cols="50";
-  pretext.row="4";
-  pretext.maxlength="110";
-  pretext.wrap="soft";
-//下書きスペース、文字計算
-  var button = document.createElement("input");
-  preform.appendChild(button);
-  button.type="button";
-  button.value="文字数チェック";
-  button.onclick="Check(" + i + ")";
-  var box = document.createElement("input");
-  preform.appendChild(box);
-  box.type="text";
-  box.size=3;
-  box.maxlength=3
-/*  document.write("<form name="user">
-                    <textarea name="tr1" cols="50" row="4" maxlength="110" wrap="soft"></textarea>
-                    <p><input type="button" value="文字数チェック" onClick="Check()">
-                    <input type="text" name="counter" size=3 maxlength=3>文字</p>
-                    </form>");
-*/
-  kijiset.splice(rnd,1);
-}
-// -->
+
+<body>
+  <p><b>記事一覧</b></p>
+  <p>以下に5つの記事が載っています。記事の下には下書きスペースがあるので自由に使ってください。</p>
+  <noscript><b>ブラウザの設定で JavaScript を有効にしてください。</b></noscript>
+<!--html部-->
+  <div name="set1">
+    <span id="url1"></span>
+    <iframe id="frame1" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set2">
+    <span id="url2"></span>
+    <iframe id="frame2" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set3">
+    <span id="url3"></span>
+    <iframe id="frame3" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set4">
+    <span id="url4"></span>
+    <iframe id="frame4" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set5">
+    <span id="url5"></span>
+    <iframe id="frame5" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+<!--スクリプト部-->
+  <script type="text/javascript">
+  <!--
+  kiji1 = "http://www.huffingtonpost.jp/2015/09/29/china-arrests-three-japanese_n_8217998.html";
+  kiji2 = "http://www.huffingtonpost.jp/sharescafe-online/women-employment-success_b_8217248.html";
+  kiji3 = "http://www.huffingtonpost.jp/2015/09/28/miura-rieko-married_n_8211446.html";
+  kiji4 = "http://www.huffingtonpost.jp/autoblog-japan/ceovw_b_8211120.html";
+  kiji5 = "http://www.huffingtonpost.jp/2015/09/24/fruits-and-vegetables-diet-depression_n_8188132.html";
+
+  var kijiset = [[1,kiji1],
+                [2,kiji2],
+                [3,kiji3],
+                [4,kiji4],
+                [5,kiji5]
+                ];
+  var index = kijiset.length;
+  var kijis = new Array();
+  for (var i = 0; i < index; i++)
+  {
+    var rnd = Math.floor(Math.random()*(index-i)); //乱数
+    kijis.push(kijiset[rnd]);
+    var element = document.getElementById("url" + (i+1));
+    element.innerHTML = "<b>記事" + (i+1) + "</b>,整理番号" + kijiset[rnd][0] +
+      ":<a href=" + kijiset[rnd][1] + " target=_blank>" + kijiset[rnd][1] + "</a><br>";
+    document.getElementById("frame" + (i+1)).src = kijiset[rnd][1];
+    kijiset.splice(rnd,1);
+  }
+  // -->
   </script>
 </body>
 </html>

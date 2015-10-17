@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+<title>記事集3</title>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+  /*(ボツ)文字数を数えるfanction
+  function check(obj){
+    var n=obj;
+    while(n){
+      if(n.nodeName=="TEXTAREA"){var ta=n;break;}
+      n=n.previousSibling;
+    }
+    var n=obj;
+    while(n){
+      if(n.nodeName=="INPUT" && n.type=="text"){var tb=n;break;}
+      n=n.previousSibling;
+    }
+    tb.value=ta.value.replace(/[\n\r]/g,"").length;
+  }*/
+  $(function(){
+    $.each($('textarea'),function(){
+      $(this).bind('keydown keyup keypress change',function(){
+        var thisValueLength = $(this).val().length;
+        $(this).nextAll('.count').html(thisValueLength + "文字");
+      });
+    });
+  });
+//-->
+</script>
+</head>
+
+
+<body>
+  <p><b>記事一覧</b></p>
+  <p>以下に5つの記事が載っています。記事の下には下書きスペースがあるので自由に使ってください。</p>
+  <noscript><b>ブラウザの設定で JavaScript を有効にしてください。</b></noscript>
+<!--html部-->
+  <div name="set1">
+    <span id="url1"></span>
+    <iframe id="frame1" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set2">
+    <span id="url2"></span>
+    <iframe id="frame2" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set3">
+    <span id="url3"></span>
+    <iframe id="frame3" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set4">
+    <span id="url4"></span>
+    <iframe id="frame4" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+  <div name="set5">
+    <span id="url5"></span>
+    <iframe id="frame5" width="95%" height="500">
+    </iframe>
+    <form>
+      <p>下書きスペース</p>
+      <textarea name="textarea" rows="4" cols="50" maxlength="110"></textarea>
+      <span class="count">0文字</span>
+    </form>
+  </div>
+<!--スクリプト部-->
+  <script type="text/javascript">
+  <!--
+  kiji11 = "http://www.huffingtonpost.jp/triport/hawaii_b_8231102.html";
+  kiji12 = "http://www.huffingtonpost.jp/2015/10/05/ryugu-hayabusa2_n_8242604.html";
+  kiji13 = "http://www.huffingtonpost.jp/2015/10/06/goto-school_n_8254718.html";
+  kiji14 = "http://www.huffingtonpost.jp/2015/10/06/nobel-prize-kajita-takaaki_n_8250890.html";
+  kiji15 = "http://www.huffingtonpost.jp/2015/10/06/cancer-preparation_n_8249102.html";
+
+  var kijiset = [[11,kiji11],
+                [12,kiji12],
+                [13,kiji13],
+                [14,kiji14],
+                [15,kiji15]
+                ];
+  var index = kijiset.length;
+  var kijis = new Array();
+  for (var i = 0; i < index; i++)
+  {
+    var rnd = Math.floor(Math.random()*(index-i)); //乱数
+    kijis.push(kijiset[rnd]);
+    var element = document.getElementById("url" + (i+1));
+    element.innerHTML = "<b>記事" + (i+1) + "</b>,整理番号" + kijiset[rnd][0] +
+      ":<a href=" + kijiset[rnd][1] + " target=_blank>" + kijiset[rnd][1] + "</a><br>";
+    document.getElementById("frame" + (i+1)).src = kijiset[rnd][1];
+    kijiset.splice(rnd,1);
+  }
+  // -->
+  </script>
+</body>
+</html>
