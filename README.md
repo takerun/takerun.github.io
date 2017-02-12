@@ -1,2 +1,7 @@
 # takerun.github.io
-test files
+
+## 一対比較評価実験
+
+* タスク
+  - 画像説明文
+  - 翻訳文
